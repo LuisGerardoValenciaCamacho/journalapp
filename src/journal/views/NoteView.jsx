@@ -1,11 +1,11 @@
-import { SaveOutlined, UploadOutlined } from "@mui/icons-material"
+import { DeleteOutline, SaveOutlined, UploadOutlined } from "@mui/icons-material"
 import { Button, Grid, IconButton, TextField, Typography } from "@mui/material"
 import { ImageGallery } from "../components"
 import { useDispatch, useSelector } from "react-redux"
 import { useForm } from "../../hooks/useForm"
 import { useEffect, useMemo, useRef } from "react"
 import { setActiveNote } from "../../store/journal/journalSlice"
-import { startSaveNote, startUploadingFiles } from "../../store/journal/thunks"
+import { startDeletingNote, startSaveNote, startUploadingFiles } from "../../store/journal/thunks"
 import Swal from "sweetalert2"
 import "sweetalert2/dist/sweetalert2.css";
 
@@ -48,6 +48,10 @@ export const NoteView = () => {
         dispatch(startUploadingFiles(target.files))
     }
 
+    const onDelete = () => {
+        dispatch(startDeletingNote());
+    }
+
     return (
         <Grid container direction="row" justifyContent="space-between" sx={{mb: 1}} className="animate__animated animate__fadeIn animate__faster">
             <Grid item>
@@ -66,6 +70,12 @@ export const NoteView = () => {
             <Grid container>
                 <TextField type="text" variant="filled" fullWidth placeholder="Ingrese un titulo" label="Titulo" sx={{border: "none", mb: 1}} name="title" onChange={onInputChange} value={title}/>
                 <TextField type="text" variant="filled" multiline fullWidth placeholder="¿Qué sucedio en el día de hoy?" label="¿Qué sucedio el día de hoy?" name="body" minRows={5} onChange={onInputChange} value={body}/>
+            </Grid>
+            <Grid container justifyContent="end">
+                <Button onClick={onDelete} sx={{ mt: 2}} color="error">
+                    <DeleteOutline />
+                    Borrar
+                </Button>
             </Grid>
             <ImageGallery images={activeNote.imageUrls}/>
         </Grid>
