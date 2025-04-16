@@ -67,7 +67,7 @@ export const NoteView = () => {
                 <TextField type="text" variant="filled" fullWidth placeholder="Ingrese un titulo" label="Titulo" sx={{border: "none", mb: 1}} name="title" onChange={onInputChange} value={title}/>
                 <TextField type="text" variant="filled" multiline fullWidth placeholder="¿Qué sucedio en el día de hoy?" label="¿Qué sucedio el día de hoy?" name="body" minRows={5} onChange={onInputChange} value={body}/>
             </Grid>
-            <ImageGallery/>
+            <ImageGallery images={activeNote.imageUrls}/>
         </Grid>
     )
 }
